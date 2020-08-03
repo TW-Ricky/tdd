@@ -12,4 +12,12 @@ public class MommifierTest {
         String result = mommifier.covert("bcad");
         assertEquals("bcamommyd", result);
     }
+
+    @Test
+    public void should_return_a_mommy_string_when_covert_given_string_with_e() {
+        Mommifier mommifier = new Mommifier();
+        String result = mommifier.covert("bced");
+        assertEquals("bcemommyd", result);
+    }
+
 }
