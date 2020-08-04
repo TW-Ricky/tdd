@@ -7,48 +7,32 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class MommifierTest {
 
     @Test
-    public void should_return_a_mommy_string_when_covert_given_string_with_a() {
+    public void should_return_a_mommy_string_when_covert_given_a_string_with_continuous_set_of_vowels() {
         Mommifier mommifier = new Mommifier();
-        String result = mommifier.covert("bcad");
-        assertEquals("bcamommyd", result);
+        String result = mommifier.covert("aabbcco");
+        String expected = "amommyabbcco";
+        assertEquals(expected, result);
     }
 
     @Test
-    public void should_return_a_mommy_string_when_covert_given_string_with_e() {
+    public void should_return_a_string_when_covert_given_a_string_with_discontinuous_vowels() {
         Mommifier mommifier = new Mommifier();
-        String result = mommifier.covert("bced");
-        assertEquals("bcemommyd", result);
+        String result = mommifier.covert("afefifofuf");
+        String expected = "afefifofuf";
+        assertEquals(expected, result);
     }
 
     @Test
-    public void should_return_a_mommy_string_when_covert_given_string_with_i() {
+    public void should_return_a_mommy_string_when_covert_given_a_string_with_more_than_30_precent_vowels() {
         Mommifier mommifier = new Mommifier();
-        String result = mommifier.covert("bcid");
-        assertEquals("bcimommyd", result);
+        String moreThanResult = mommifier.covert("aeffifouff");
+        assertEquals("amommyeffifomommyuff", moreThanResult);
     }
 
     @Test
-    public void should_return_a_mommy_string_when_covert_given_string_with_o() {
+    public void should_return_a_string_when_covert_given_a_string_with_less_30_precent_vowels() {
         Mommifier mommifier = new Mommifier();
-        String result = mommifier.covert("oo");
-        assertEquals("omommyomommy", result);
+        String lessResult = mommifier.covert("aeffifffff");
+        assertEquals("aeffifffff", lessResult);
     }
-
-    @Test
-    public void should_return_a_mommy_string_when_covert_given_string_with_u() {
-        Mommifier mommifier = new Mommifier();
-        String result = mommifier.covert("uu");
-        assertEquals("umommyumommy", result);
-    }
-
-    @Test
-    public void should_return_a_mommy_string_when_checkout_given_string_with_30_precent_of_vowels() {
-        Mommifier mommifier = new Mommifier();
-        String moreThanResult = mommifier.checkout("afefifofuf");
-        assertEquals("amommyfemommyfimommyfomommyfumommyf", moreThanResult);
-
-        String lessResult = mommifier.checkout("afefifffff");
-        assertEquals("afefifffff", lessResult);
-    }
-
 }

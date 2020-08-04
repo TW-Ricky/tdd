@@ -1,33 +1,36 @@
 package com.twuc.tdddame;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Mommifier {
 
     public static final String EMPTY_STRING = "";
     public static final double THRESHOLD = 0.00001;
     public static final double MAX_PRECENT = 0.3;
     public static final String MOMMY = "mommy";
+    public static final String VOWELS = "[aeiouAEIOU]";
+    public static final String CONTINUOUS_VOWELS = "[aeiouAEIOU]{2,}";
 
     public String covert(String string) {
-        string = string.replaceAll(Vowels.O.getValue(), Vowels.O.getValue() + MOMMY)
-                .replaceAll(Vowels.U.getValue(), Vowels.U.getValue() + MOMMY)
-                .replaceAll(Vowels.I.getValue(), Vowels.I.getValue() + MOMMY)
-                .replaceAll(Vowels.E.getValue(), Vowels.E.getValue() + MOMMY)
-                .replaceAll(Vowels.A.getValue(), Vowels.A.getValue() + MOMMY);
+        if (checkout(string)) {
+            Pattern pattern = Pattern.compile(CONTINUOUS_VOWELS);
+            Matcher matcher = pattern.matcher(string);
+            while (matcher.find()) {
+                string = string.replaceAll(matcher.group(), String.join(MOMMY, matcher.group().split("")));
+            }
+        }
         return string;
     }
 
-    public String checkout(String string) {
+    private Boolean checkout(String string) {
         String copyString = string;
-        copyString = copyString.replaceAll(Vowels.O.getValue(), EMPTY_STRING)
-                .replaceAll(Vowels.U.getValue(), EMPTY_STRING)
-                .replaceAll(Vowels.I.getValue(), EMPTY_STRING)
-                .replaceAll(Vowels.E.getValue(), EMPTY_STRING)
-                .replaceAll(Vowels.A.getValue(), EMPTY_STRING);
+        copyString = copyString.replaceAll(VOWELS, EMPTY_STRING);
         int vowelsCount = string.length() - copyString.length();
         double vowelsProportion = (float)vowelsCount / string.length();
         if(vowelsProportion - MAX_PRECENT > THRESHOLD) {
-            string = covert(string);
+            return true;
         }
-        return string;
+        return false;
     }
 }
